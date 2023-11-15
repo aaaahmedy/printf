@@ -42,8 +42,9 @@ int _string_type(char *strg)
 int _printf(const char *format, ...)
 {
 	va_list argms ;
-	int i = 0 , C = 0 , count = 0;
+	int i = 0 , num_c= 0 , count = 0;
 	char *strg ;
+	va_start(argms , format);
 
 	if (format == NULL )
 	{
@@ -56,15 +57,15 @@ int _printf(const char *format, ...)
 			i++;
 			if (*(format + i) == 'c')
 			{
-				C = va_arg(argms , int);
+				num_c = va_arg(argms , int);
 				write(1,&C,1);
 				count++;
 			}
 			else if
 			{
 				strg = va_arg(argms , char*);
-				C = _string_type(strg);
-				count += C ;
+				num_c = _string_type(strg);
+				count += num_c ;
 			}
 			else
 			{
