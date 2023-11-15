@@ -44,8 +44,9 @@ int _printf(const char *format, ...)
 	va_list argms ;
 	int i = 0 , num_c= 0 , count = 0;
 	char *strg ;
-	va_start(argms , format);
 
+
+	va_start(argms , format);
 	if (format == NULL )
 	{
 		return (-1);
@@ -55,13 +56,13 @@ int _printf(const char *format, ...)
 		if (*(format + i) == '%')
 		{
 			i++;
-			if (*(format + i) == 'c')
+			if (*(format + i) == 'c' || *(format + i) == '%')
 			{
 				num_c = va_arg(argms , int);
 				write(1,&C,1);
 				count++;
 			}
-			else if
+			else if (*(format + i) == 's')
 			{
 				strg = va_arg(argms , char*);
 				num_c = _string_type(strg);
@@ -76,6 +77,7 @@ int _printf(const char *format, ...)
 		else
 		{
 			_putchar(*(format + i));
+			count++;
 		}
 		i++;
 	}
