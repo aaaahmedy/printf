@@ -60,11 +60,16 @@ int _printf(const char *format, ...)
 				write(1,&C,1);
 				count++;
 			}
-			else
+			else if
 			{
 				strg = va_arg(argms , char*);
 				C = _string_type(strg);
 				count += C ;
+			}
+			else
+			{
+				_putchar(*format);
+				count ++;
 			}
 		}
 		else
