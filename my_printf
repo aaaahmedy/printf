@@ -1,0 +1,78 @@
+#include "main.h"
+#include <unistd.h>
+#include <string.h>
+
+/**
+ * _putchar - writes the character c to stdout
+ * @c:The character
+ * Return:  1 (true).
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+
+int _putchar(char c)
+{
+	return(write(1,&c,1));
+}
+
+/**
+* _string_type - Handle variable type string.
+* @strg: String entered by the user
+* Return: number characters enterd
+*/
+
+int _string_type(char *strg)
+{
+	int num_char = 0 ;
+
+	if (strg == NULL)
+	{
+		strg="(null)";
+		write(1,*strg,6);
+		return (6);
+	}
+	else
+	{
+		num_char = strlen(strg);
+		write(1,*strg,num_char);
+		return (num_char);
+	}
+
+}
+
+int _printf(const char *format, ...)
+{
+	va_list argms ;
+	int i = 0 , C = 0 , count = 0;
+	char *strg ;
+
+	if (format == NULL )
+	{
+		return (-1);
+	}
+	while (*format != '\0' )
+	{
+		if (*format == '%')
+		{
+			format++;
+			if (*format == 'c')
+			{
+				C = va_arg(argms , int);
+				write(1,&C,1);
+				count++;
+			}
+			else
+			{
+				strg = va_arg(argms , char*);
+				C = _string_type(strg);
+				count += C ;
+			}
+		}
+		else
+		{
+			_putchar(*format);
+		}
+		format++;
+	}
+	va_end(argms);
+}
+
