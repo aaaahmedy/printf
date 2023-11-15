@@ -49,12 +49,12 @@ int _printf(const char *format, ...)
 	{
 		return (-1);
 	}
-	while (*format != '\0' )
+	while (*(format + i) != '\0' )
 	{
-		if (*format == '%')
+		if (*(format + i) == '%')
 		{
-			format++;
-			if (*format == 'c')
+			i++;
+			if (*(format + i) == 'c')
 			{
 				C = va_arg(argms , int);
 				write(1,&C,1);
@@ -68,16 +68,17 @@ int _printf(const char *format, ...)
 			}
 			else
 			{
-				_putchar(*format);
+				_putchar(*(format + i));
 				count ++;
 			}
 		}
 		else
 		{
-			_putchar(*format);
+			_putchar(*(format + i));
 		}
-		format++;
+		i++;
 	}
 	va_end(argms);
+	return (count);
 }
 
