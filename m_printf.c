@@ -120,6 +120,10 @@ int _printf(const char *format, ...)
 				value = va_arg(args, int);
 				count += _int_value(value);
 				break;
+			case 'b':
+				value = va_arg(args, int);
+				count += _int_value(value);
+				break;
 			case 'i':
 				value = va_arg(args, int);
 				count += _int_value(value);
