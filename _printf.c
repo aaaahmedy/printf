@@ -114,7 +114,7 @@ int _printf(const char *format, ...)
 		if (*(format + i) == '%')
 		{
 			i++;
-			if (*(format + i) == 'c' || *(format + i) == '%')
+			if (*(format + i) == 'c')
 			{
 				value = va_arg(args, int);
 				write(1, &value, 1);
@@ -134,11 +134,8 @@ int _printf(const char *format, ...)
 				else
 				{
 					_putchar('%');
-					if (*(format + i))
-					{
-						_putchar(*(format + i));
-						count += 2;
-					}
+					_putchar(*(format + i));
+					count += 2;
 				}
 		}
 		else
