@@ -3,7 +3,6 @@
 #include <string.h>
 #include <stdarg.h>
 #include <stdlib.h>
-
 /**
  * _putchar - writes the character c to stdout
  * @c: The character
@@ -14,13 +13,11 @@ int _putchar(char c)
 {
 	return (write(1, &c, 1));
 }
-
 /**
  * _string_type - Handle variable type string.
  * @strg: String entered by the user
  *  Return: number characters entered
 */
-
 int _string_type(char *strg)
 {
 	int num_char = 0;
@@ -38,41 +35,37 @@ int _string_type(char *strg)
 		return (num_char);
 	}
 }
-
 /**
 * numlen - calculates the lentgh of a number.
 * @number: the number given.
 * Return: the length.
 */
-
 int num_len(int number)
 {
 	int length = 0;
 
-	while (number != 0) 
+	while (number != 0)
 	{
 		number /= 10;
 		length++;
 	}
 	return (length);
 }
-
 /**
 * _int_value - handling with int (%d) and (%i).
 * @number: the giving integer.
 * Return: the number printed.
 */
-
 int _int_value(int number)
 {
 	char *string;
 	int len = 0, i;
+
 	if (number == 0)
 	{
-		_putchar('0');
-		return(1);
+		_putchar ('0');
+		return (1);
 	}
-
 	if (number < 0)
 	{
 		_putchar('-');
@@ -82,7 +75,6 @@ int _int_value(int number)
 	string = (char *)malloc(sizeof(char) * (len + 1));
 	if (string == NULL)
 		return (-1);
-
 	for (i = len - 1; i >= 0; i--)
 	{
 		string[i] = '0' + (number % 10);
@@ -93,13 +85,11 @@ int _int_value(int number)
 	free(string);
 	return (len);
 }
-
 /**
 * _printf - produces output according to a format.
 * @format: the format specifier.
 * Return: the number of characters printed.
 */
-
 int _printf(const char *format, ...)
 {
 	va_list args;
@@ -114,36 +104,40 @@ int _printf(const char *format, ...)
 		if (*(format + i) == '%')
 		{
 			i++;
-			if (*(format + i) == 'c')
+			switch (*(format + i))
 			{
+			case 'c':
 				value = va_arg(args, int);
 				write(1, &value, 1);
 				count++;
-			}
-			else if (*(format + i) == 's')
-			{
+				break;
+			case 's':
 				string = va_arg(args, char *);
 				value = _string_type(string);
 				count += value;
+				break;
+			case 'd':
+				value = va_arg(args, int);
+				count += _int_value(value);
+				break;
+			case 'i':
+				value = va_arg(args, int);
+				count += _int_value(value);
+				break;
+			default:
+				_putchar('%');
+				_putchar(*(format + i));
+				count += 2;
+				break;
 			}
-				else if (*(format + i) == 'd' || *(format + i) == 'i')
-				{
-					value = va_arg(args, int);
-					count += _int_value(value);
-				}
-				else
-				{
-					_putchar('%');
-					_putchar(*(format + i));
-					count += 2;
-				}
 		}
 		else
 		{
-			_putchar(*(format + i));
+			_putchar (*(format + i));
 			count++;
 		}
 		i++;
 	}
+	va_end(args);
 	return (count);
 }
